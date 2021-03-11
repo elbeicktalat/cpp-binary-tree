@@ -61,6 +61,7 @@ void clearTree(struct Node* node) {
 	clearTree(node->right);
 	clearTree(node->left);
 	delete node;
+	root = nullptr;
 }
 
 
