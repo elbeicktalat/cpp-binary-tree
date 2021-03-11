@@ -4,8 +4,8 @@ using namespace std;
 
 struct Node {
 	int value;
-	struct Node* left;
-	struct Node* right;
+	Node* left;
+	Node* right;
 
 	Node(int data) {
 		value = data;
@@ -14,9 +14,15 @@ struct Node {
 	}
 };
 
-struct Node* root = nullptr;
+#define getValue(node)(node->value)
+#define getLeftChild(node)(node->left)
+#define getRightChild(node)(node->right)
 
-void addNodeToTree(struct Node* oldNode, struct Node* newNode) {
+
+Node* root = nullptr;
+
+
+void addNodeToTree(Node* oldNode, Node* newNode) {
 	if (root == nullptr) {
 		root = newNode;
 		return;
@@ -41,25 +47,24 @@ void addNodeToTree(struct Node* oldNode, struct Node* newNode) {
 	}
 }
 
-void printTree(struct Node* node) {
+void printTree(Node* node) {
 	if (node == nullptr) {
 		return;
 	}
-
-	printTree(node->left);
-	cout << node->value << "  ";
-	printTree(node->right);
+	printTree(getLeftChild(node));
+	cout << getValue(node) << "  ";
+	printTree(getRightChild(node));
 
 
 }
 
-void clearTree(struct Node* node) {
+void clearTree(Node* node) {
 	if (node == nullptr) {
 		return;
 	}
 
-	clearTree(node->right);
-	clearTree(node->left);
+	clearTree(getRightChild(node));
+	clearTree(getLeftChild(node));
 	delete node;
 	root = nullptr;
 }
@@ -79,9 +84,11 @@ int main() {
 	return 0;
 }
 
-/*        [5]
-		/   \
-	  []     []
-	 /  \   /  \
+/*  
 
+          (5)
+		 /   \
+	   (3)   (7)
+	   / \   / \
+    
 */
